@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-
 class AppUtils {
-  static String firstLetterCapitalise({@required String stringValue}) {
+  static String firstLetterCapitalise({String stringValue}) {
     if (stringValue == null || stringValue.isEmpty) return "-";
     stringValue = stringValue[0].toUpperCase() + stringValue.substring(1);
     return stringValue.replaceAll('-', ' ');
   }
 
-  static String convertToNameCase({@required String name}) {
+  static String convertToNameCase({String name}) {
     String returnName = "";
     if (name == null || name == "") return "-";
     try {
@@ -22,11 +20,18 @@ class AppUtils {
   }
 
   static String displayNameWithDash({
-    @required String string1,
-    @required String string2,
+    String string1,
+    String string2,
   }) {
-    return firstLetterCapitalise(stringValue: string1) +
-        " - " +
-        firstLetterCapitalise(stringValue: string2);
+    if (string1 == null && string2 == null) {
+      return "-";
+    } else if (string1 != null && string2 == null) {
+      return firstLetterCapitalise(stringValue: string1) + "-";
+    } else if (string1 == null && string2 != null) {
+      return "-" + firstLetterCapitalise(stringValue: string2);
+    }
+    return firstLetterCapitalise(stringValue: string1).trim() +
+        "-" +
+        firstLetterCapitalise(stringValue: string2).trim();
   }
 }
